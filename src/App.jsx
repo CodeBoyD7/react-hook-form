@@ -1,4 +1,4 @@
-// Install Tailwind CSS using the following steps:
+// Install Tailwind CSS:
 // 1. Install Tailwind via npm: `npm install -D tailwindcss postcss autoprefixer`
 // 2. Initialize Tailwind: `npx tailwindcss init`
 // 3. Add Tailwind directives to your CSS file: @tailwind base; @tailwind components; @tailwind utilities;
@@ -19,154 +19,89 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-4 text-center">Register</h1>
-        {/* Form element with handleSubmit to manage submission */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Name Field */}
-          <div>
-            <label htmlFor="firstName" className="block font-medium">
-              Name
-            </label>
+    <div>
+      {/* Form element with handleSubmit to manage submission */}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Name Field */}
+        <label htmlFor="firstName"> Name</label>
+        <input {...register("firstName", { required: "Name is required" })} />
+        {errors.firstName && <p>{errors.firstName.message}</p>}
+
+        {/* Email Field */}
+        <label htmlFor="email">Email</label>
+        <input {...register("email", { required: "Email is required" })} />
+        {errors.email && <p>{errors.email.message}</p>}
+
+        {/* Select Dropdown */}
+        <label htmlFor="country">Country</label>
+        <select {...register("country")}>
+          <option value="">SELECT</option>
+          <option value="usa">USA</option>
+          <option value="canada">Canada</option>
+        </select>
+
+        <div>
+          {/* Age Field with Validation */}
+          <label htmlFor="age">
+            Age
             <input
-              {...register("firstName", { required: "Name is required" })}
-              className="w-full p-2 border rounded"
+              type="number"
+              {...register("age", {
+                required: "Age is required",
+                min: { value: 18, message: "Age should not be less than 18" },
+              })}
             />
-            {errors.firstName && (
-              <p className="text-red-500 text-sm">{errors.firstName.message}</p>
-            )}
-          </div>
+          </label>
+          {errors.age && <p>{errors.age.message}</p>}
 
-          {/* Email Field */}
-          <div>
-            <label htmlFor="email" className="block font-medium">
-              Email
-            </label>
+          {/* Salary Field with Custom Validation */}
+          <label htmlFor="salary">
+            Salary
             <input
-              {...register("email", { required: "Email is required" })}
-              className="w-full p-2 border rounded"
+              type="number"
+              {...register("salary", {
+                required: "Salary is required",
+                valueAsNumber: true,
+                validate: (value) =>
+                  value > 100000 || "Salary should be greater than 100000",
+              })}
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
-            )}
-          </div>
+          </label>
+          {errors.salary && <p>{errors.salary.message}</p>}
+        </div>
 
-          {/* Select Dropdown */}
-          <div>
-            <label htmlFor="country" className="block font-medium">
-              Country
-            </label>
-            <select
-              {...register("country")}
-              className="w-full p-2 border rounded"
-            >
-              <option value="">SELECT</option>
-              <option value="usa">USA</option>
-              <option value="canada">Canada</option>
-            </select>
-          </div>
+        <div>
+          {/* Radio Button for Gender Selection */}
+          <label htmlFor="male">
+            <input
+              type="radio"
+              {...register("gender", { required: "Select your gender" })}
+              value="male"
+            />
+            MALE
+          </label>
+          <label htmlFor="female">
+            <input type="radio" {...register("gender")} value="female" />
+            FEMALE
+          </label>
+          {errors.gender && <p>{errors.gender.message}</p>}
+        </div>
 
-          {/* Age and Salary Fields */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="age" className="block font-medium">
-                Age
-              </label>
-              <input
-                type="number"
-                {...register("age", {
-                  required: "Age is required",
-                  min: { value: 18, message: "Age should not be less than 18" },
-                })}
-                className="w-full p-2 border rounded"
-              />
-              {errors.age && (
-                <p className="text-red-500 text-sm">{errors.age.message}</p>
-              )}
-            </div>
-            <div>
-              <label htmlFor="salary" className="block font-medium">
-                Salary
-              </label>
-              <input
-                type="number"
-                {...register("salary", {
-                  required: "Salary is required",
-                  valueAsNumber: true,
-                  validate: (value) =>
-                    value > 100000 || "Salary should be greater than 100000",
-                })}
-                className="w-full p-2 border rounded"
-              />
-              {errors.salary && (
-                <p className="text-red-500 text-sm">{errors.salary.message}</p>
-              )}
-            </div>
-          </div>
+        <div>
+          {/* Checkboxes for Skills Selection */}
+          <label>
+            <input type="checkbox" {...register("skills")} value="JAVA" />
+            JAVA
+          </label>
+          <label>
+            <input type="checkbox" {...register("skills")} value="PYTHON" />
+            PYTHON
+          </label>
+        </div>
 
-          {/* Gender Selection */}
-          <div>
-            <label className="block font-medium">Gender</label>
-            <div className="flex gap-4">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  {...register("gender", { required: "Select your gender" })}
-                  value="male"
-                  className="mr-2"
-                />
-                MALE
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  {...register("gender")}
-                  value="female"
-                  className="mr-2"
-                />
-                FEMALE
-              </label>
-            </div>
-            {errors.gender && (
-              <p className="text-red-500 text-sm">{errors.gender.message}</p>
-            )}
-          </div>
-
-          {/* Skills Selection */}
-          <div>
-            <label className="block font-medium">Skills</label>
-            <div className="flex gap-4">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  {...register("skills")}
-                  value="JAVA"
-                  className="mr-2"
-                />
-                JAVA
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  {...register("skills")}
-                  value="PYTHON"
-                  className="mr-2"
-                />
-                PYTHON
-              </label>
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
+        {/* Submit Button */}
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 };
