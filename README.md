@@ -1,4 +1,4 @@
-# React Hook Form with Tailwind CSS
+# React Hook Form
 
 This project demonstrates a simple form built with **React Hook Form** and styled using **Tailwind CSS**. It includes various input fields with validation and error handling.
 
