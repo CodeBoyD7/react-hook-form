@@ -1,4 +1,4 @@
-// Install Tailwind CSS:
+// Install Tailwind CSS using the following steps:
 // 1. Install Tailwind via npm: `npm install -D tailwindcss postcss autoprefixer`
 // 2. Initialize Tailwind: `npx tailwindcss init`
 // 3. Add Tailwind directives to your CSS file: @tailwind base; @tailwind components; @tailwind utilities;
