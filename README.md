@@ -7,6 +7,7 @@ This project demonstrates a simple form built with **React Hook Form** and style
 - Form validation using `react-hook-form`
 - Error handling for required fields
 - Input types: text, email, number, radio buttons, checkboxes, and a dropdown
+- useForm() hook for form management
 - Styled using **Tailwind CSS**
 
 ## 📦 Installation
